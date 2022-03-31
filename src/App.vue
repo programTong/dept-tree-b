@@ -1,15 +1,41 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <el-row :gutter="10">
+      <el-col :span="2">      <router-link to="/home">Go to home</router-link></el-col>
+      <el-col :span="2">      <router-link to="/login">login</router-link></el-col>
+    </el-row>
+    <br/>
+    <router-view v-if="isRouterAlive"/>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
+  },
+  provide(){
+    return {
+      reload: this.reload
+    }
+  },
+  data() {
+    return {
+      isRouterAlive: true
+    }
+  },
+  mounted() {
+
+  },
+  methods: {
+    reload: function (){
+      this.isRouterAlive = false;
+      this.$nextTick(function (){
+        this.isRouterAlive = true;
+      })
+    }
   }
 }
 </script>
